@@ -162,10 +162,10 @@ $("#task-form-modal").on("show.bs.modal", function() {
 });
 
 // modal is fully visible
-// $("#task-form-modal").on("shown.bs.modal", function() {
-//   // highlight textarea
-//   $("#modalTaskDescription").trigger("focus");
-// });
+$("#task-form-modal").on("shown.bs.modal", function() {
+  // highlight textarea
+  $("#modalTaskDescription").trigger("focus");
+});
 
 // save button in modal was clicked
 $("#task-form-modal .btn-primary").click(function() {
