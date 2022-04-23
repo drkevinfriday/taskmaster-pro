@@ -50,6 +50,69 @@ var saveTasks = function() {
 
 
 // event listeners 
+// Tasks can now be dragged within the same column and across other columns. 
+$(".card .list-group").sortable({
+  connectWith: $(".card .list-group"),
+  scroll: false,
+  tolerance: "pointer",
+  helper: "clone",
+  activate: function(event,ui) {
+    console.log(ui);
+  },
+  deactivate: function(event,ui) {
+    console.log(ui);
+  },
+  over: function(event,ui) {
+    console.log(event);
+  },
+  out: function(event) {
+    console.log(event);
+  },
+  update: function(event) {
+  var tempArr =[]
+   $(this)
+   .children()
+   .each(function(){
+      // add task to array
+      tempArr.push({
+        text: $(this)
+        .find("p")
+        .text()
+        .trim(),
+
+        date: $(this)
+        .find("span")
+        .text()
+        .trim(),
+      });
+   });
+    
+   var arrName  = $(this)
+    .attr("id")
+    .replace("list-","")
+
+    tasks[arrName] =tempArr;
+    saveTasks();
+  },  
+  stop: function(event){
+    $(this).removeClass("dropover")
+
+  }
+});
+
+$(".trash").droppable({
+  accept: ".card .list-group-item",
+  tolerance: "touch",
+  drop: function(event, ui) {
+    ui.draggable.remove();
+  },
+  over: function(event, ui) {
+    console.log(ui);
+  },
+  out: function(event, ui) {
+    console.log(ui);
+  }
+});
 
 
 //this shows a click item on a p tag
